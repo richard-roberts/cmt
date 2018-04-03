@@ -1,0 +1,1 @@
+../../../SalientPosesMaya/build/plug-ins/SalientPoses/kernel.cl

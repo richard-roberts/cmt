@@ -1,0 +1,1 @@
+../../../SalientPosesMaya/tests/test_salient_poses.py
