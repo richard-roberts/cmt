@@ -51,6 +51,19 @@ def mayapy(maya_version):
         python_exe += '.exe'
     return python_exe
 
+def mayabatch(maya_version):
+    """Get the mayabatch executable path.
+
+    @param maya_version The maya version number.
+    @return: The mayabatch executable path.
+    """
+
+    if platform.system() == 'Windows':
+        return '{0}/bin/mayabatch'.format(get_maya_location(maya_version)), ""
+    elif platform.system() == 'Darwin':
+        return '{0}/bin/maya'.format(get_maya_location(maya_version)), "-batch"
+    else:
+        raise ValueError("Could not find batch executable on %s" % platform.system())
 
 def create_clean_maya_app_dir(directory=None):
     """Creates a copy of the clean Maya preferences so we can create predictable results.
@@ -91,9 +104,21 @@ def main():
                         default=2016)
     parser.add_argument('-mad', '--maya-app-dir',
                         help='Just create a clean MAYA_APP_DIR and exit')
+    parser.add_argument('-b', '--use-batch-mode',
+                        help='Use mayabatch instead of mayapy',
+                        default=False)
     pargs = parser.parse_args()
     mayaunittest = os.path.join(CMT_ROOT_DIR, 'scripts', 'cmt', 'test', 'mayaunittest.py')
     cmd = [mayapy(pargs.maya), mayaunittest]
+
+    if pargs.use_batch_mode == '1':
+        mayaunittest = os.path.join(CMT_ROOT_DIR, 'scripts', 'cmt', 'test')
+        exe, other = mayabatch(pargs.maya)
+        cmd = [exe]
+        if other != "":
+            cmd += [other]
+        cmd += ['-command', 'python("import sys; sys.path.append(\'%s\'); import mayaunittest; mayaunittest.run_tests_from_commandline()")' % mayaunittest.replace("\\", "/")]
+
     if not os.path.exists(cmd[0]):
         raise RuntimeError('Maya {0} is not installed on this system.'.format(pargs.maya))
 

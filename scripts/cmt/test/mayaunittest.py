@@ -106,13 +106,6 @@ def maya_module_tests():
 
 
 def run_tests_from_commandline():
-    """Runs the tests in Maya standalone mode.
-
-    This is called when running cmt/bin/runmayatests.py from the commandline.
-    """
-    import maya.standalone
-    maya.standalone.initialize()
-
     # Make sure all paths in PYTHONPATH are also in sys.path
     # When a maya module is loaded, the scripts folder is added to PYTHONPATH, but it doesn't seem
     # to be added to sys.path. So we are unable to import any of the python files that are in the
@@ -125,6 +118,16 @@ def run_tests_from_commandline():
             sys.path.insert(0, p)
 
     run_tests()
+
+def run_tests_from_commandline_with_init():
+    """Runs the tests in Maya standalone mode.
+
+    This is called when running cmt/bin/runmayatests.py from the commandline.
+    """
+    import maya.standalone
+    maya.standalone.initialize()
+
+    run_tests_from_commandline()
 
     # Starting Maya 2016, we have to call uninitialize
     if float(cmds.about(v=True)) >= 2016.0:
@@ -367,4 +370,4 @@ class ScriptEditorState(object):
 
 
 if __name__ == '__main__':
-    run_tests_from_commandline()
+    run_tests_from_commandline_with_init()
