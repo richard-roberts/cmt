@@ -1,0 +1,8 @@
+import sys
+sys.path.append("/Users/richard-roberts/Development/PhD/tests/cmt/scripts")
+import cmt.test.mayaunittestui as mui
+mui.show()
+
+
+reload(mui)
+mui._reload()

@@ -1,0 +1,5 @@
+for s in cmds.ls(selection=True):
+    cmds.setAttr("%s.rx" % s, 0)
+    cmds.setAttr("%s.ry" % s, 0)
+    cmds.setAttr("%s.rz" % s, 0)
+    

@@ -1,0 +1,7 @@
+//Maya Preference 2018 (Release 1)
+//
+//
+evalDeferred("autoLoadPlugin(\"\", \"animImportExport\", \"animImportExport\")");
+evalDeferred("autoLoadPlugin(\"\", \"fbxmaya\", \"fbxmaya\")");
+evalDeferred("autoLoadPlugin(\"\", \"mtoa\", \"mtoa\")");
+evalDeferred("autoLoadPlugin(\"\", \"modelingToolkit\", \"modelingToolkit\")");

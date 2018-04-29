@@ -1,0 +1,6 @@
+import sys
+sys.path.append("/Users/richard-roberts/Development/PhD/SalientPosesMaya/build/plug-ins/SalientPoses/scripts")
+import salient_poses_menu as spm
+reload(spm)
+spm._reload()
+spm.show()

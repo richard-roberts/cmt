@@ -1,0 +1,3 @@
+for s in cmds.ls(selection=True):
+    cmds.rename(s, s.replace("mixamorig:", ""))
+    
