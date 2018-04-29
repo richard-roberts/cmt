@@ -215,7 +215,10 @@ class TestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        super(TestCase, cls).tearDownClass()
+        try:
+            super(TestCase, cls).tearDownClass()
+        except TypeError:
+            pass
         cls.delete_temp_files()
         cls.unload_plugins()
 
